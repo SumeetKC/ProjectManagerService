@@ -25,5 +25,7 @@ public interface ProjectDao {
 	
 	// Method to get project
 	public Project getProject(int id);
+	
+	public Project updateProjectStatus(Project project);
 
 }

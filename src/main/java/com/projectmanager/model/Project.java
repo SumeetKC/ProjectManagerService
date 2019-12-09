@@ -40,6 +40,20 @@ public class Project {
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 	private int priority;
+	
+	private boolean projectEndStatus;
+	/**
+	 * @return the projectEndStatus
+	 */
+	public boolean isProjectEndStatus() {
+		return projectEndStatus;
+	}
+	/**
+	 * @param projectEndStatus the projectEndStatus to set
+	 */
+	public void setProjectEndStatus(boolean projectEndStatus) {
+		this.projectEndStatus = projectEndStatus;
+	}
 	/**
 	 * @return the projectId
 	 */
@@ -107,13 +121,14 @@ public class Project {
 	 * @param endDate
 	 * @param priority
 	 */
-	public Project(int projectId, String projectName, Date startDate, Date endDate, int priority) {
+	public Project(int projectId, String projectName, Date startDate, Date endDate, int priority, boolean projectEndStatus) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.priority = priority;
+		this.projectEndStatus = projectEndStatus;
 	}
 	/**
 	 * 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,6 +69,12 @@ public class ProjectService {
 		Project project = new Project();
 		project = projectDaoImpl.getProject(id);
 		return project;
+	}
+	
+	@PutMapping(value = "/projectstatus", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Project updateProjectStatus(@Valid @RequestBody Project project) {
+	
+		return projectDaoImpl.updateProjectStatus(project);
 	}
 
 }

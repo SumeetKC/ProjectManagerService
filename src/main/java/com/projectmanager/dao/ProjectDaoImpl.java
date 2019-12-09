@@ -119,5 +119,28 @@ public class ProjectDaoImpl implements ProjectDao {
 		return project;
 	}
 
+	public Project updateProjectStatus(Project project) {
+		// TODO Auto-generated method stub
+		logger.info("Updating End Status for the project");
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			project.setProjectEndStatus(true);
+			session.saveOrUpdate("projectEndStatus", project);
+			tx.commit();
+
+		} catch (Exception ex) {
+			if (tx != null)
+				tx.rollback();
+			logger.error("Exception while updating the end project status : " + ex);
+			throw ex;
+		} finally {
+			session.close();
+		}
+		logger.info("Project End Status Updated Successfully");
+		return project;
+	}
+
 
 }
