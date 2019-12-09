@@ -55,7 +55,24 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User updateUser(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		logger.info("Updating User in database");
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(user);
+			tx.commit();
+
+		} catch (Exception ex) {
+			if (tx != null)
+				tx.rollback();
+			logger.error("Exception while updating the user: " + ex);
+			throw ex;
+		} finally {
+			session.close();
+		}
+		logger.info("User Updated Successfully.");
+		return user;
 	}
 
 	@Override
@@ -85,7 +102,51 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User getUser(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		logger.info("Getting User Based on The Key Passed");
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		User user = new User();
+		try {
+			tx = session.beginTransaction();
+			user = session.get(User.class, id);
+			tx.commit();
+
+		} catch (Exception ex) {
+			if (tx != null)
+				tx.rollback();
+			logger.error("Exception while retrieving the user: " + ex);
+			throw ex;
+		} finally {
+			session.close();
+		}
+		logger.info("User Retrieved Successfully from the Database");
+		return user;
 	}
+
+	@Override
+	public void deleteUser(int id) {
+		// TODO Auto-generated method stub
+		logger.info("Deleting User based on the id Passed");
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+		User user = getUser(id);
+		try {
+			tx = session.beginTransaction();
+			session.delete(user);
+			tx.commit();
+
+		} catch (Exception ex) {
+			if (tx != null)
+				tx.rollback();
+			logger.error("Exception while deleting the user: " + ex);
+			throw ex;
+		} finally {
+			session.close();
+		}
+		logger.info("User Deleted Successfully from the Database");
+	}
+	
+	
+	
 
 }

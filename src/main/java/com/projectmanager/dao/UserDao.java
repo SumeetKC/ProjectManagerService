@@ -25,5 +25,7 @@ public interface UserDao {
 	
 	// Method to get user
 	public User getUser(int id);
+	
+	public void deleteUser(int id);
 
 }
