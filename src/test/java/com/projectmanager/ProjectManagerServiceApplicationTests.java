@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.projectmanager.dao.ProjectDao;
 import com.projectmanager.dao.TaskDao;
 import com.projectmanager.dao.UserDao;
+import com.projectmanager.model.Project;
 import com.projectmanager.model.Task;
 import com.projectmanager.model.User;
 import com.projectmanager.service.ProjectService;
@@ -221,18 +222,18 @@ class ProjectManagerServiceApplicationTests {
     
   //******************************** Test Cases for Project*******************************
     @Test
-    public void testAddProject() 
+    public void testAddProject() throws ParseException 
     {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
          
-        Task task = new Task(1, 1, "parent", "taskname", new Date(), new Date(), 2, false);
-        when(taskDao.addTask(task)).thenReturn(task);
+        Project project = new Project(1, "Acis", new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-30"), new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-30"), 2, true); 
+        when(projectDao.addProject(project)).thenReturn(project);
          
         
         try {
-        	Task task1 = taskDao.addTask(task);
-        	assertEquals(task, task1);
+        	Project project1 = projectDao.addProject(project);
+        	assertEquals(project, project1);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("The exception is : " + e);
@@ -242,18 +243,17 @@ class ProjectManagerServiceApplicationTests {
     }
     
     @Test
-    public void testUpdateProject() 
+    public void testUpdateProject() throws ParseException 
     {
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
          
-        Task task = new Task(1, 1, "parent", "taskname", new Date(), new Date(), 2, false);
-        when(taskDao.updateTask(task)).thenReturn(task);
-         
+        Project project = new Project(1, "Acis", new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-30"), new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-30"), 2, true);
+        when(projectDao.updateProject(project)).thenReturn(project);
         
         try {
-        	Task task1 = taskDao.updateTask(task);
-        	assertEquals(task, task1);
+        	Project project1 = projectDao.updateProject(project);
+        	assertEquals(project, project1);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("The exception is : " + e);
@@ -264,40 +264,40 @@ class ProjectManagerServiceApplicationTests {
     
      
     @Test
-    public void testGetProjects() 
+    public void testGetProjects() throws ParseException 
     {
         // given
-    	Task task1 = new Task(1, 1, "parent", "taskname", new Date(), new Date(), 2, false);
-    	Task task2 = new Task(2, 2, "parent1", "taskname1", new Date(), new Date(), 3, true);
-        ArrayList<Task> list = new ArrayList<Task>();
-        list.add(task1);
-        list.add(task2);
+    	Project project = new Project(1, "Acis", new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-30"), new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-30"), 2, true);
+    	Project project1 = new Project(2, "Project", new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-26"), new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-28"), 2, true);
+        ArrayList<Project> list = new ArrayList<Project>();
+        list.add(project);
+        list.add(project1);
  
-        when(taskDao.getTasks()).thenReturn(list);
+        when(projectDao.getProjects()).thenReturn(list);
  
         // when
-        List<Task> result = taskDao.getTasks();
+        List<Project> result = projectDao.getProjects();
  
         // then
         assertEquals(result.size(), list.size());
-        assertEquals(result.get(0).getTaskName(), list.get(0).getTaskName());
+        assertEquals(result.get(0).getProjectName(), list.get(0).getProjectName());
     }
     
     @Test
     public void testGetProject() throws ParseException 
     {
         // given
-    	int taskId = 31;
+    	int projectId = 31;
     	try {
-		Task task = new Task(31, 30, "Parent", "Task1", new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-30"), new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-30"), 12, false);
+    		Project project = new Project(31, "Acis project", new SimpleDateFormat("yyyy-MM-dd").parse("2018-11-30"), new SimpleDateFormat("yyyy-MM-dd").parse("2017-11-30"), 2, true);
     
-        when(taskDao.getTask(taskId)).thenReturn(task);
+        when(projectDao.getProject(projectId)).thenReturn(project);
  
         // when
-        Task result = taskDao.getTask(taskId);
+        Project result = projectDao.getProject(projectId);
         
         // then
-        assertEquals(result.getTaskName(), task.getTaskName());
+        assertEquals(result.getProjectName(), project.getProjectName());
 			
 		} catch (Exception e) {
 			// TODO: handle exception
