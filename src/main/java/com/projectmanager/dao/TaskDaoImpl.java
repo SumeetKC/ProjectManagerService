@@ -125,7 +125,7 @@ public class TaskDaoImpl implements TaskDao {
 		try {
 			tx = session.beginTransaction();
 			task.setStatus(true);
-			session.saveOrUpdate("endTaskStatus", task);
+			session.saveOrUpdate(task);
 			tx.commit();
 
 		} catch (Exception ex) {

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,7 +48,7 @@ public class TaskService {
 		return taskDaoImpl.addTask(task);
 	}
 
-	@PutMapping(value = "/updatetask", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/updatetask", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Task updateTask(@Valid @RequestBody Task task) {
 		
 		return taskDaoImpl.updateTask(task);
@@ -63,7 +62,7 @@ public class TaskService {
 		return taskList;
 	}
 
-	@PutMapping(value = "/updateendstatus", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/updateendstatus", produces = MediaType.APPLICATION_JSON_VALUE)
 	public Task updateEndStatus(@Valid @RequestBody Task task) {
 	
 		return taskDaoImpl.updateEndTask(task);
